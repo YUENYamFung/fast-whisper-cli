@@ -1,0 +1,23 @@
+# Use NVIDIA CUDA 12 base image with cuDNN and Python 3.11
+FROM nvidia/cuda:12.6.3-cudnn-runtime-ubuntu22.04
+    
+# Set environment variables
+# ENV DEBIAN_FRONTEND=noninteractive
+ENV LANG=C.UTF-8
+ENV LC_ALL=C.UTF-8
+
+RUN DEBIAN_FRONTEND=noninteractive apt-get update && apt-get install -y --no-install-recommends \
+    python3.11 python3-pip python3.11-venv python3.11-dev \
+    ffmpeg libsndfile1 git curl \
+    && rm -rf /var/lib/apt/lists/*
+RUN DEBIAN_FRONTEND=noninteractive ln -s /usr/bin/python3.11 /usr/bin/python
+RUN DEBIAN_FRONTEND=noninteractive python -m pip install --upgrade pip
+RUN DEBIAN_FRONTEND=noninteractive pip install --no-cache-dir torch torchvision torchaudio
+RUN DEBIAN_FRONTEND=noninteractive pip install --no-cache-dir faster-whisper
+
+# Copy CLI script
+COPY fast_whisper_cli.py /app/fast_whisper_cli.py
+
+WORKDIR /app
+
+ENTRYPOINT ["python", "fast_whisper_cli.py"]
