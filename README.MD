@@ -1,4 +1,3 @@
-```markdown
 # Faster Whisper Docker CLI
 
 This repository provides a Dockerized CLI tool for efficient speech transcription using [faster-whisper](https://github.com/guillaumekln/faster-whisper). It leverages NVIDIA CUDA for GPU acceleration and splits long audio files into chunks to enable scalable transcription with `ffmpeg`.
@@ -122,4 +121,3 @@ This project leverages open-source components; please refer to their respective 
 ---
 
 If you encounter issues or have suggestions, feel free to open an issue or pull request.
-```
